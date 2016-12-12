@@ -1,14 +1,17 @@
 import sys
-sys.path.append('../src')
+sys.path.append('..')
 
-from shingle_table import DocRecord, ShingleRecord, Shingler, \
-							  ShingleTable, Sequence, CommonSequenceGenerator, \
-							  SequenceGroup, BasicNormalizer
+from shingle_table import ShingleTable
+from csg import Sequence, CommonSequenceGenerator, SequenceGroup
+from shingler import Shingler
+from normalizers import BasicNormalizer
+from dto import DocRecord, ShingleRecord
 
 from utils.misc import test_suite_from_test_cases
 
-from abc import ABCMeta, abstractmethod, abstractproperty
+from abc import ABCMeta, abstractproperty
 from itertools import product
+
 import unittest
 
 
@@ -262,7 +265,7 @@ class CommonSequenceGeneratorTest(unittest.TestCase):
 		self._build_shingle_table()
 
 	def _build_shingle_table(self):
-		norm_fn = BasicNormalizer.normalize
+		norm_fn = BasicNormalizer().normalize
 		shingler = Shingler(shingle_size = self.shingle_size, normalization_fn = norm_fn, token_ptrn = r"(?u)\b\w+\b")
 		doc_records = self._get_doc_records()
 		shingles = shingler.shingle_docs(doc_records)

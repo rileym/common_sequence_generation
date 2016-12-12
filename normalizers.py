@@ -1,3 +1,6 @@
+import re
+from operator import methodcaller
+from utils.misc import space_normalizer
 from abc import ABCMeta, abstractproperty
 
 # Abstract Normalizer
