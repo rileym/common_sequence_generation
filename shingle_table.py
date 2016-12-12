@@ -1,11 +1,10 @@
-
 import re
 from operator import itemgetter, methodcaller
 from itertools import chain, imap
 from collections import namedtuple
 from abc import ABCMeta, abstractmethod, abstractproperty
 from utils.misc import space_normalizer
-
+from normalizers import BasicNormalizer
 # parse
 # normalize
 # shingle
@@ -28,36 +27,8 @@ from utils.misc import space_normalizer
 # - write access (increment)
 # - hashable
 
-ONE_OR_MORE_DIGITS_RE = '\d+'
-NON_ALPHANUMERIC = '[^a-zA-Z]+'
-
-def regexep_replace_closure(re_ptrn, repl):
-
-    compiled_regexp = re.compile(re_ptrn)
-    def regexep_replace(s):
-        return compiled_regexp.sub(repl, s)
-
-    return regexep_replace
-
 DocRecord = namedtuple('DocRecord', 'doc_id doc')
 ShingleRecord = namedtuple('ShingleRecord', 'doc_id i shingle')
-
-class AbstractNormalizer(object):
-
-    ___metaclass__ = ABCMeta
-
-    @classmethod
-    def normalize(cls, s):
-        return reduce(lambda s, f: f(s), cls._normalizer_fns, s)
-
-class BasicNormalizer(AbstractNormalizer):
-
-    _normalizer_fns = [ 
-                        methodcaller('lower'),
-                        space_normalizer,
-                        regexep_replace_closure(ONE_OR_MORE_DIGITS_RE, u''),
-                        regexep_replace_closure(NON_ALPHANUMERIC, u''),
-                      ]
 
 class Shingler(object):
 
