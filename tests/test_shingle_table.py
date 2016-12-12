@@ -7,7 +7,7 @@ from shingler import Shingler
 from normalizers import BasicNormalizer
 from dto import DocRecord, ShingleRecord
 
-from utils.misc import test_suite_from_test_cases
+from utils.debug_utils import test_suite_from_test_cases
 
 from abc import ABCMeta, abstractproperty
 from itertools import product

@@ -1,6 +1,6 @@
 import re
 from operator import methodcaller
-from utils.misc import space_normalizer
+from utils.misc import space_normalizer, regexep_replace_closure
 from abc import ABCMeta, abstractproperty
 
 # Abstract Normalizer
@@ -19,14 +19,6 @@ class AbstractNormalizer(object):
 # Implementations
 ONE_OR_MORE_DIGITS_RE = '\d+'
 NON_ALPHANUMERIC = '[^a-zA-Z]+'
-
-def regexep_replace_closure(re_ptrn, repl):
-
-    compiled_regexp = re.compile(re_ptrn)
-    def regexep_replace(s):
-        return compiled_regexp.sub(repl, s)
-
-    return regexep_replace
 
 class BasicNormalizer(AbstractNormalizer):
 
